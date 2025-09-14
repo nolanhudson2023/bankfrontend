@@ -119,7 +119,7 @@ if (user?.role === "admin") {
       {/* Overlay for mobile */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-30 lg:hidden"
+          className="fixed inset-0 bg-transparent bg-opacity-30 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
