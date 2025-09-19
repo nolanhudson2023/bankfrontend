@@ -24,6 +24,7 @@ import {
   ArcElement,
 } from 'chart.js';
 import { api } from '../api';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +37,10 @@ ChartJS.register(
   ArcElement
 );
 
+
 const Dashboard = ({ user }) => {
+
+  useDocumentTitle("Dashboard");
   const [dashboardData, setDashboardData] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [showBalance, setShowBalance] = useState(true);
