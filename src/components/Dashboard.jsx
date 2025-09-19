@@ -134,7 +134,7 @@ const fetchAccounts = async () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
       </div>
     );
   }
@@ -142,7 +142,7 @@ const fetchAccounts = async () => {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
+      <div className="bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl p-6 text-white">
         <h2 className="text-2xl font-bold mb-2">Good morning, {user?.firstName}!</h2>
         <p className="text-blue-100">Here's your financial overview for today</p>
       </div>

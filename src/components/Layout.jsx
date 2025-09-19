@@ -14,7 +14,7 @@ const Layout = ({ user }) => {
         } bg-white shadow-md transition-all duration-300`}
       >
         <div className="p-4 flex justify-between items-center">
-          <span className="font-bold text-blue-600">
+          <span className="font-bold text-orange-600">
             {isOpen ? "MyBank" : "MB"}
           </span>
           <button

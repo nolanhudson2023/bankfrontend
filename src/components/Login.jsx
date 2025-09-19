@@ -73,7 +73,7 @@ const Login = ({ onLogin, defaultMode = "login" }) => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {phase === "login" ? (
               <>
-                {/* registration-only fields */}
+                {/* Registration-only fields */}
                 {!isLogin && (
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -163,7 +163,7 @@ const Login = ({ onLogin, defaultMode = "login" }) => {
               </>
             ) : (
               <>
-                {/* OTP phase */}
+                {/* OTP Phase */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     One-Time Password (OTP)
@@ -176,6 +176,24 @@ const Login = ({ onLogin, defaultMode = "login" }) => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="6 Digits sent via email"
                   />
+                </div>
+
+                {/* Resend OTP button */}
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        await api.post("/auth/resend-otp", { email: formData.email });
+                        toast.success("New OTP sent to your email");
+                      } catch (err) {
+                        toast.error(err.message || "Failed to resend OTP");
+                      }
+                    }}
+                    className="text-orange-600 hover:text-orange-700 font-medium"
+                  >
+                    Resend OTP
+                  </button>
                 </div>
               </>
             )}

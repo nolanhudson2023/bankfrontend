@@ -75,7 +75,7 @@ function App() {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<MainContent />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          {!user ? <Route path="/login" element={<Login onLogin={handleLogin} />}/> : null}
           <Route path="/signup" element={<Login onLogin={handleLogin} isLogin={false}/>} />
         </Route>
         {/* Protected Routes */}
