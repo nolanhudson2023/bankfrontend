@@ -3,7 +3,6 @@ import { api } from "../api";
 import AdminLayout from "./AdminLayout";
 import { toast } from "react-toastify";
 
-
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,8 +23,15 @@ const AdminDashboard = () => {
   // ✅ Fetch all users with accounts + transactions
   const fetchUsers = async () => {
     try {
-      const data = await api.get("/admin/users"); // token auto-attached
-      setUsers(data);
+      const data = await api.get("/admin/users");
+
+      // If you're using axios, actual data is usually in data.data
+      const users = data.data || data;
+
+      // Filter out admins
+      const nonAdminUsers = users.filter((user) => user.role !== "admin");
+
+      setUsers(nonAdminUsers);
     } catch (err) {
       console.error("Error fetching users:", err);
     } finally {

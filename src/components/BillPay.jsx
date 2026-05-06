@@ -13,9 +13,6 @@ import {
 import { api } from "../api";
 import { toast } from "react-toastify";
 
-
-
-
 const BillPay = ({ user }) => {
   const [activeTab, setActiveTab] = useState("pay");
   const [loading, setLoading] = useState(false);
@@ -71,22 +68,22 @@ const BillPay = ({ user }) => {
 
   // ✅ Fetch accounts from backend
   useEffect(() => {
-   const fetchAccounts = async () => {
-  try {
-    const data = await api.get("/accounts"); // ✅ token handled in api.js
-    setAccounts(data);
+    const fetchAccounts = async () => {
+      try {
+        const data = await api.get("/accounts"); // ✅ token handled in api.js
+        setAccounts(data);
 
-    // ✅ default to first account if available
-    if (data.length > 0) {
-      setBillData((prev) => ({
-        ...prev,
-        account: data[0]._id,
-      }));
-    }
-  } catch (error) {
-    console.error("Error fetching accounts:", error);
-  }
-};
+        // ✅ default to first account if available
+        if (data.length > 0) {
+          setBillData((prev) => ({
+            ...prev,
+            account: data[0]._id,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching accounts:", error);
+      }
+    };
     fetchAccounts();
   }, []);
 
@@ -109,7 +106,7 @@ const BillPay = ({ user }) => {
   };
 
   const handleVerifyCode = () => {
-    if (withdrawalCode === "1234") {
+    if (withdrawalCode === user?.awcCode) {
       setSuccess(true);
       setCodeStep(false);
       setWithdrawalCode("");
@@ -126,14 +123,15 @@ const BillPay = ({ user }) => {
     }
   };
 
-
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Bill Pay</h2>
-          <p className="text-gray-600">Manage your bills and schedule payments</p>
+          <p className="text-gray-600">
+            Manage your bills and schedule payments
+          </p>
         </div>
       </div>
 
@@ -151,7 +149,7 @@ const BillPay = ({ user }) => {
               Please Input Automated Withdrawal Code
             </p>
             <input
-              type="number"
+              type="text"
               value={withdrawalCode}
               onChange={(e) => setWithdrawalCode(e.target.value)}
               disabled={!inputEnabled}

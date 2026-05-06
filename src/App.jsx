@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -20,7 +25,6 @@ import CookieConsent from "./components/CookieConsent";
 import PublicLayout from "./components/PublicLayout";
 import Footer from "./components/Footer";
 import MainContent from "./components/MainContent";
-
 
 function App() {
   const [user, setUser] = useState(null);
@@ -75,8 +79,13 @@ function App() {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<MainContent />} />
-          {!user ? <Route path="/login" element={<Login onLogin={handleLogin} />}/> : null}
-          <Route path="/signup" element={<Login onLogin={handleLogin} isLogin={false}/>} />
+          {!user ? (
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          ) : null}
+          <Route
+            path="/signup"
+            element={<Login onLogin={handleLogin} isLogin={false} />}
+          />
         </Route>
         {/* Protected Routes */}
         {user ? (
@@ -167,11 +176,17 @@ function App() {
             />
 
             {/* Catch all */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="*"
+              element={<Navigate to={user ? "/dashboard" : "/login"} replace />}
+            />
           </>
         ) : (
           // Redirect if not logged in
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route
+            path="*"
+            element={<Navigate to={user ? "/dashboard" : "/login"} replace />}
+          />
         )}
       </Routes>
       <Footer />
