@@ -14,6 +14,7 @@ const AdminDashboard = () => {
     type: "deposit",
     amount: "",
     description: "",
+    date: "",
   });
 
   useEffect(() => {
@@ -66,6 +67,7 @@ const AdminDashboard = () => {
         type: "deposit",
         amount: "",
         description: "",
+        date: "", // Reset date
       });
       fetchUsers();
     } catch (err) {
@@ -144,6 +146,10 @@ const AdminDashboard = () => {
                                 className="flex justify-between items-center bg-gray-100 p-2 rounded mt-1"
                               >
                                 <span>
+                                  {tx.type} – ${tx.amount} ({tx.description})
+                                </span>
+                                <span>
+                                  {new Date(tx.date).toLocaleDateString()} –{" "}
                                   {tx.type} – ${tx.amount} ({tx.description})
                                 </span>
                                 <button
@@ -270,6 +276,23 @@ const AdminDashboard = () => {
                 })
               }
             />
+            {/* Date Picker */}
+            <div className="flex flex-col">
+              <label className="text-xs font-semibold text-gray-500 ml-1">
+                Transaction Date (Optional)
+              </label>
+              <input
+                type="date"
+                className="border rounded px-3 py-2 w-full"
+                value={transactionData.date}
+                onChange={(e) =>
+                  setTransactionData({
+                    ...transactionData,
+                    date: e.target.value,
+                  })
+                }
+              />
+            </div>
 
             {/* Description */}
             <input

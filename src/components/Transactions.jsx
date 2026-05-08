@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Filter, Download, ArrowUpRight, ArrowDownRight, DollarSign } from 'lucide-react';
-import { api } from '../api';
-
+import React, { useState, useEffect } from "react";
+import {
+  Search,
+  Filter,
+  Download,
+  ArrowUpRight,
+  ArrowDownRight,
+  DollarSign,
+} from "lucide-react";
+import { api } from "../api";
 
 const Transactions = ({ user }) => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -20,50 +26,56 @@ const Transactions = ({ user }) => {
     filterTransactions();
   }, [transactions, searchTerm, filterType]);
 
-
-const fetchTransactions = async () => {
-  setLoading(true);
-  try {
-    const data = await api.get("/transactions"); // ✅ cleaner GET
-    setTransactions(data);
-  } catch (error) {
-    console.error("Error fetching transactions:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchTransactions = async () => {
+    setLoading(true);
+    try {
+      const data = await api.get("/transactions"); // ✅ cleaner GET
+      setTransactions(data);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filterTransactions = () => {
     let filtered = transactions;
 
     if (searchTerm) {
-      filtered = filtered.filter(transaction =>
-        transaction.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        transaction.recipientName?.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (transaction) =>
+          transaction.description
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          transaction.recipientName
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()),
       );
     }
 
-    if (filterType !== 'all') {
-      filtered = filtered.filter(transaction => transaction.type === filterType);
+    if (filterType !== "all") {
+      filtered = filtered.filter(
+        (transaction) => transaction.type === filterType,
+      );
     }
 
     setFilteredTransactions(filtered);
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
     }).format(Math.abs(amount));
   };
 
   const getTransactionIcon = (type) => {
     switch (type) {
-      case 'deposit':
+      case "deposit":
         return <ArrowDownRight className="w-5 h-5 text-green-600" />;
-      case 'withdrawal':
-      case 'transfer':
-      case 'payment':
+      case "withdrawal":
+      case "transfer":
+      case "payment":
         return <ArrowUpRight className="w-5 h-5 text-red-600" />;
       default:
         return <DollarSign className="w-5 h-5 text-gray-600" />;
@@ -72,26 +84,28 @@ const fetchTransactions = async () => {
 
   const getTransactionColor = (type) => {
     switch (type) {
-      case 'deposit':
-        return 'text-green-600';
-      case 'withdrawal':
-      case 'transfer':
-      case 'payment':
-        return 'text-red-600';
+      case "deposit":
+        return "text-green-600";
+      case "withdrawal":
+      case "transfer":
+      case "payment":
+        return "text-red-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
   const getStatusBadge = (status) => {
     const classes = {
-      completed: 'bg-green-100 text-green-700',
-      pending: 'bg-yellow-100 text-yellow-700',
-      failed: 'bg-red-100 text-red-700'
+      completed: "bg-green-100 text-green-700",
+      pending: "bg-yellow-100 text-yellow-700",
+      failed: "bg-red-100 text-red-700",
     };
-    
+
     return (
-      <span className={`px-2 py-1 text-xs font-medium rounded-full ${classes[status]}`}>
+      <span
+        className={`px-2 py-1 text-xs font-medium rounded-full ${classes[status]}`}
+      >
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </span>
     );
@@ -100,7 +114,7 @@ const fetchTransactions = async () => {
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
   const currentTransactions = filteredTransactions.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   if (loading) {
@@ -112,12 +126,16 @@ const fetchTransactions = async () => {
   }
 
   return (
-       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Transaction History</h2>
-          <p className="text-gray-600">View and manage your transaction history</p>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Transaction History
+          </h2>
+          <p className="text-gray-600">
+            View and manage your transaction history
+          </p>
         </div>
         <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
           <Download className="w-4 h-4" />
@@ -163,16 +181,29 @@ const fetchTransactions = async () => {
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">Transaction</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">Type</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">Amount</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">Date</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
+                  Transaction
+                </th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
+                  Type
+                </th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
+                  Amount
+                </th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
+                  Status
+                </th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
+                  Date
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {currentTransactions.map((transaction) => (
-                <tr key={transaction._id} className="hover:bg-gray-50 transition-colors">
+                <tr
+                  key={transaction._id}
+                  className="hover:bg-gray-50 transition-colors"
+                >
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-3">
                       <div className="p-2 bg-gray-100 rounded-lg">
@@ -196,20 +227,21 @@ const fetchTransactions = async () => {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`font-semibold ${getTransactionColor(transaction.type)}`}>
-                      {transaction.type === 'deposit' ? '+' : '-'}{formatCurrency(transaction.amount)}
+                    <span
+                      className={`font-semibold ${getTransactionColor(transaction.type)}`}
+                    >
+                      {transaction.type === "deposit" ? "+" : "-"}
+                      {formatCurrency(transaction.amount)}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     {getStatusBadge(transaction.status)}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-700">
-                    {new Date(transaction.createdAt).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
+                    {new Date(transaction.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
                     })}
                   </td>
                 </tr>
@@ -222,7 +254,12 @@ const fetchTransactions = async () => {
         {totalPages > 1 && (
           <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
             <div className="text-sm text-gray-700">
-              Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredTransactions.length)} of {filteredTransactions.length} results
+              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+              {Math.min(
+                currentPage * itemsPerPage,
+                filteredTransactions.length,
+              )}{" "}
+              of {filteredTransactions.length} results
             </div>
             <div className="flex items-center space-x-2">
               <button
@@ -238,8 +275,8 @@ const fetchTransactions = async () => {
                   onClick={() => setCurrentPage(index + 1)}
                   className={`px-3 py-1 border rounded-md text-sm ${
                     currentPage === index + 1
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'border-gray-300 hover:bg-gray-50'
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "border-gray-300 hover:bg-gray-50"
                   }`}
                 >
                   {index + 1}
