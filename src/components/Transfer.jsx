@@ -91,7 +91,6 @@ const Transfer = ({ user }) => {
 
   useEffect(() => {
     fetchAccounts();
-    fetchAwcCode();
   }, []);
 
   const fetchAccounts = async () => {
@@ -113,15 +112,6 @@ const Transfer = ({ user }) => {
     }
   };
 
-  const fetchAwcCode = async () => {
-    try {
-      const data = await api.get("/auth/me");
-      setAwcCode(data.awcCode);
-    } catch (error) {
-      console.error("Error fetching AWC code:", error);
-    }
-  };
-
   const handleChange = (section, field, value) => {
     setTransferData((prev) => ({
       ...prev,
@@ -129,29 +119,32 @@ const Transfer = ({ user }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
 
     setProcessing(true);
-    setTimeout(() => {
+
+    try {
+      // Request the dynamic OTP from the server
+      await api.post("/transactions/request-otp");
+
       setProcessing(false);
-      setShowAwcModal(true);
-    }, 2500);
+      setShowAwcModal(true); // Now shows for the OTP entry
+    } catch (error) {
+      setProcessing(false);
+      alert("Failed to send verification code. Please try again.");
+    }
   };
 
   const confirmTransfer = async () => {
-    if (enteredAwc !== awcCode) {
-      setAwcError("Invalid AWC code. Please try again.");
-      return;
-    }
-
     setAwcError("");
     setLoading(true);
 
     const type = transferData.transferType;
     const payload = {
       transferType: type,
+      otp: enteredAwc,
       ...transferData.common,
       ...transferData[type],
     };
@@ -170,8 +163,9 @@ const Transfer = ({ user }) => {
       setSuccess(true);
       await fetchAccounts();
       setTimeout(() => setSuccess(false), 5000);
+      setShowAwcModal(false);
     } catch (error) {
-      setAwcError(error.message || "Transfer failed.");
+      setAwcError(error.response?.data?.message || "Transfer failed.");
     } finally {
       setLoading(false);
       setShowAwcModal(false);
@@ -250,6 +244,18 @@ const Transfer = ({ user }) => {
                 AWC (Account Withdrawal Code)
               </span>
               .
+            </p>
+            <h2 className="text-xl font-bold text-gray-900">
+              Email Verification
+            </h2>
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+              We've sent a 6-digit security code to your registered email.
+              Please enter it below to authorize this
+              <span className="font-bold text-gray-900">
+                {" "}
+                ${transferData.common.amount}{" "}
+              </span>{" "}
+              transfer.
             </p>
 
             <input
