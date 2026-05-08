@@ -354,7 +354,7 @@ const Dashboard = ({ user }) => {
                         {transaction.description || transaction.type}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {new Date(transaction.createdAt).toLocaleDateString()}
+                        {new Date(transaction.date).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
