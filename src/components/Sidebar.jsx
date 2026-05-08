@@ -54,7 +54,7 @@ if (user?.role === "admin") {
         {/* Logo + Collapse Button */}
         <div className="flex items-center justify-between h-16 border-b px-4">
           <span
-            className={`text-xl font-bold text-blue-600 transition-all duration-300 ${
+            className={`text-xl font-bold text-orange-600 transition-all duration-300 ${
               sidebarOpen ? "opacity-100" : "opacity-0 lg:hidden"
             }`}
           >
@@ -82,7 +82,7 @@ if (user?.role === "admin") {
               className={`flex items-center w-full px-4 py-2 text-sm font-medium transition-colors
               ${
                 location.pathname === item.path
-                  ? "bg-blue-50 text-blue-600"
+                  ? "bg-blue-50 text-orange-600"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
             >
@@ -119,7 +119,7 @@ if (user?.role === "admin") {
       {/* Overlay for mobile */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-30 lg:hidden"
+          className="fixed inset-0 bg-transparent bg-opacity-30 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}

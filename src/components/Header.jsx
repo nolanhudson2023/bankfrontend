@@ -21,7 +21,7 @@ const Header = ({ activeTab, sidebarOpen, setSidebarOpen, user }) => {
   return (
     <header
       className={`top-0 left-0 right-0 z-30 h-16 flex items-center bg-white shadow-sm border-b border-gray-200 transition-all
-        ${sidebarOpen ? "lg:ml-64" : "lg:ml-20"} 
+        ${sidebarOpen ? "lg:ml-64" : "lg:ml-20"}
       `}
     >
       <div className="flex items-center justify-between w-full px-4 sm:px-6 lg:px-8">

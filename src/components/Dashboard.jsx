@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   TrendingUp,
   TrendingDown,
@@ -9,9 +9,9 @@ import {
   Eye,
   EyeOff,
   PoundSterling,
-  Euro
-} from 'lucide-react';
-import { Line, Doughnut } from 'react-chartjs-2';
+  Euro,
+} from "lucide-react";
+import { Line, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,8 +22,9 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-} from 'chart.js';
-import { api } from '../api';
+} from "chart.js";
+import { api } from "../api";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 ChartJS.register(
   CategoryScale,
@@ -33,10 +34,11 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
 );
 
 const Dashboard = ({ user }) => {
+  useDocumentTitle("Dashboard");
   const [dashboardData, setDashboardData] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [showBalance, setShowBalance] = useState(true);
@@ -52,29 +54,31 @@ const Dashboard = ({ user }) => {
     fetchRates();
   }, []);
 
-const fetchDashboardData = async () => {
-  try {
-    const data = await api.get("/dashboard/stats"); // ✅ token handled in api.js
-    setDashboardData(data);
-  } catch (error) {
-    console.error("Error fetching dashboard data:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchDashboardData = async () => {
+    try {
+      const data = await api.get("/dashboard/stats"); // ✅ token handled in api.js
+      setDashboardData(data);
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const fetchAccounts = async () => {
-  try {
-    const data = await api.get("/accounts"); // ✅ auto-attaches token
-    setAccounts(data);
-  } catch (error) {
-    console.error("Error fetching accounts:", error);
-  }
-};
+  const fetchAccounts = async () => {
+    try {
+      const data = await api.get("/accounts"); // ✅ auto-attaches token
+      setAccounts(data);
+    } catch (error) {
+      console.error("Error fetching accounts:", error);
+    }
+  };
 
   const fetchRates = async () => {
     try {
-      const res = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=USD,GBP,EUR");
+      const res = await fetch(
+        "https://api.exchangerate.host/latest?base=USD&symbols=USD,GBP,EUR",
+      );
       const data = await res.json();
       if (data && data.rates) {
         setRates(data.rates);
@@ -88,16 +92,19 @@ const fetchAccounts = async () => {
     if (!amount) return "0";
 
     const converted = amount * (rates[currency] || 1);
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(converted);
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+    }).format(converted);
   };
 
   const getTransactionIcon = (type) => {
     switch (type) {
-      case 'deposit':
+      case "deposit":
         return <ArrowDownRight className="w-4 h-4 text-green-600" />;
-      case 'withdrawal':
-      case 'transfer':
-      case 'payment':
+      case "withdrawal":
+      case "transfer":
+      case "payment":
         return <ArrowUpRight className="w-4 h-4 text-red-600" />;
       default:
         return <DollarSign className="w-4 h-4 text-gray-600" />;
@@ -105,32 +112,58 @@ const fetchAccounts = async () => {
   };
 
   const chartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
-        label: 'Balance',
-        data: [12000, 15000, 13000, 17000, 16000, dashboardData?.totalBalance || 18000],
-        borderColor: 'rgb(37, 99, 235)',
-        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+        label: "Balance",
+        data: [
+          12000,
+          15000,
+          13000,
+          17000,
+          16000,
+          dashboardData?.totalBalance || 18000,
+        ],
+        borderColor: "rgb(37, 99, 235)",
+        backgroundColor: "rgba(37, 99, 235, 0.1)",
         tension: 0.4,
       },
     ],
   };
 
-  const spendingData = {
-    labels: ['Food & Dining', 'Shopping', 'Transportation', 'Bills', 'Entertainment'],
-    datasets: [
-      {
-        data: [1200, 800, 400, 1500, 300],
-        backgroundColor: ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6'],
-      },
-    ],
-  };
+  const spendingData = React.useMemo(() => {
+    if (!dashboardData?.recentTransactions) return null;
+
+    const totals = {};
+
+    dashboardData.recentTransactions.forEach((tx) => {
+      // ignore deposits if you only want spending
+      if (tx.type === "deposit") return;
+
+      totals[tx.type] = (totals[tx.type] || 0) + Math.abs(tx.amount);
+    });
+
+    return {
+      labels: Object.keys(totals),
+      datasets: [
+        {
+          data: Object.values(totals),
+          backgroundColor: [
+            "#EF4444",
+            "#F59E0B",
+            "#10B981",
+            "#3B82F6",
+            "#8B5CF6",
+          ],
+        },
+      ],
+    };
+  }, [dashboardData]);
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
       </div>
     );
   }
@@ -138,9 +171,13 @@ const fetchAccounts = async () => {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
-        <h2 className="text-2xl font-bold mb-2">Good morning, {user?.firstName}!</h2>
-        <p className="text-blue-100">Here's your financial overview for today</p>
+      <div className="bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl p-6 text-white">
+        <h2 className="text-2xl font-bold mb-2">
+          Good morning, {user?.firstName}!
+        </h2>
+        <p className="text-blue-100">
+          Here's your financial overview for today
+        </p>
       </div>
 
       {/* Quick Stats */}
@@ -149,13 +186,22 @@ const fetchAccounts = async () => {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <h1 className="font-bold text-xl mb-4">Currency</h1>
           <div className="flex items-center mb-4 space-x-4">
-            <button onClick={() => setCurrency("USD")} className={`p-3 rounded-lg ${currency === "USD" ? "bg-green-100" : ""}`}>
+            <button
+              onClick={() => setCurrency("USD")}
+              className={`p-3 rounded-lg ${currency === "USD" ? "bg-green-100" : ""}`}
+            >
               <DollarSign className="w-6 h-6 text-green-600" />
             </button>
-            <button onClick={() => setCurrency("GBP")} className={`p-3 rounded-lg ${currency === "GBP" ? "bg-blue-100" : ""}`}>
+            <button
+              onClick={() => setCurrency("GBP")}
+              className={`p-3 rounded-lg ${currency === "GBP" ? "bg-blue-100" : ""}`}
+            >
               <PoundSterling className="w-6 h-6 text-blue-600" />
             </button>
-            <button onClick={() => setCurrency("EUR")} className={`p-3 rounded-lg ${currency === "EUR" ? "bg-purple-100" : ""}`}>
+            <button
+              onClick={() => setCurrency("EUR")}
+              className={`p-3 rounded-lg ${currency === "EUR" ? "bg-purple-100" : ""}`}
+            >
               <Euro className="w-6 h-6 text-purple-600" />
             </button>
             <button onClick={() => setShowBalance(!showBalance)}>
@@ -168,7 +214,9 @@ const fetchAccounts = async () => {
           </div>
           <p className="text-sm text-gray-600 mb-1">Total Balance</p>
           <p className="text-2xl font-bold text-gray-900">
-            {showBalance ? formatCurrency(dashboardData?.totalBalance || 0) : '••••••'}
+            {showBalance
+              ? formatCurrency(dashboardData?.totalBalance || 0)
+              : "••••••"}
           </p>
         </div>
 
@@ -178,7 +226,9 @@ const fetchAccounts = async () => {
             <CreditCard className="w-6 h-6 text-blue-600" />
           </div>
           <p className="text-sm text-gray-600 mb-1">Active Accounts</p>
-          <p className="text-2xl font-bold text-gray-900">{dashboardData?.accountCount || 0}</p>
+          <p className="text-2xl font-bold text-gray-900">
+            {dashboardData?.accountCount || 0}
+          </p>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
@@ -196,9 +246,14 @@ const fetchAccounts = async () => {
             <TrendingUp className="w-6 h-6 text-purple-600" />
           </div>
           <p className="text-sm text-gray-600 mb-1">Savings Goal</p>
-          <p className="text-2xl font-bold text-gray-900">{formatCurrency(5000)}</p>
+          <p className="text-2xl font-bold text-gray-900">
+            {formatCurrency(5000)}
+          </p>
           <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-            <div className="bg-purple-600 h-2 rounded-full" style={{ width: '68%' }}></div>
+            <div
+              className="bg-purple-600 h-2 rounded-full"
+              style={{ width: "68%" }}
+            ></div>
           </div>
         </div>
       </div>
@@ -207,7 +262,9 @@ const fetchAccounts = async () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Balance Chart */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Balance Overview</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Balance Overview
+          </h3>
           <div className="h-64">
             <Line
               data={chartData}
@@ -223,14 +280,16 @@ const fetchAccounts = async () => {
 
         {/* Spending Breakdown */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Spending Breakdown</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Spending Breakdown
+          </h3>
           <div className="h-64">
             <Doughnut
-              data={spendingData}
+              data={spendingData || { labels: [], datasets: [] }}
               options={{
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { position: 'right' } },
+                plugins: { legend: { position: "right" } },
               }}
             />
           </div>
@@ -254,7 +313,9 @@ const fetchAccounts = async () => {
                   <p className="font-medium text-gray-900 capitalize">
                     {account.accountType} Account
                   </p>
-                  <p className="text-sm text-gray-600">••••{(account.accountNumber || '').slice(-4)}</p>
+                  <p className="text-sm text-gray-600">
+                    ••••{(account.accountNumber || "").slice(-4)}
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold text-gray-900">
@@ -262,9 +323,9 @@ const fetchAccounts = async () => {
                   </p>
                   <span
                     className={`text-xs px-2 py-1 rounded-full ${
-                      account.status === 'active'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-red-100 text-red-700'
+                      account.status === "active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
                     }`}
                   >
                     {account.status}
@@ -278,7 +339,9 @@ const fetchAccounts = async () => {
         {/* Recent Transactions */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="p-6 border-b border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Recent Transactions
+            </h3>
           </div>
           <div className="p-6">
             <div className="space-y-4">
@@ -297,10 +360,12 @@ const fetchAccounts = async () => {
                   </div>
                   <p
                     className={`font-semibold ${
-                      transaction.type === 'deposit' ? 'text-green-600' : 'text-red-600'
+                      transaction.type === "deposit"
+                        ? "text-green-600"
+                        : "text-red-600"
                     }`}
                   >
-                    {transaction.type === 'deposit' ? '+' : '-'}
+                    {transaction.type === "deposit" ? "+" : "-"}
                     {formatCurrency(Math.abs(transaction.amount))}
                   </p>
                 </div>
