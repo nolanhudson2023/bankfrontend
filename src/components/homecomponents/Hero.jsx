@@ -17,7 +17,7 @@ const Hero = () => {
             </h3>
 
             <a
-              href="#"
+              href="/personal/credit"
               className="inline-block bg-white text-orange-500 font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-100 transition"
             >
               Learn More

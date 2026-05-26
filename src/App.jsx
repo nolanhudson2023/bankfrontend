@@ -26,6 +26,21 @@ import PublicLayout from "./components/PublicLayout";
 import Footer from "./components/Footer";
 import MainContent from "./components/MainContent";
 
+//HomePages
+import Save from "./components/homecomponents/Save";
+import HelpCenter from "./components/homecomponents/HelpCenter";
+import Rates from "./components/homecomponents/Rates";
+import Checking from "./components/homecomponents/Checking";
+import Investing from "./components/homecomponents/Investing";
+import Credit from "./components/homecomponents/Credit";
+import GIC from "./components/homecomponents/GIC";
+import Offers from "./components/homecomponents/Offers";
+import Contact from "./components/homecomponents/Contact";
+import Privacy from "./components/homecomponents/Privacy";
+import Legal from "./components/homecomponents/Legal";
+import Security from "./components/homecomponents/Security";
+import Accessibility from "./components/homecomponents/Accessibility";
+
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,6 +94,20 @@ function App() {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<MainContent />} />
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/personal/save" element={<Save />}></Route>
+          <Route path="/personal/checking" element={<Checking />}></Route>
+          <Route path="/personal/investing" element={<Investing />}></Route>
+          <Route path="/personal/credit" element={<Credit />}></Route>
+          <Route path="/personal/gic" element={<GIC />}></Route>
+          <Route path="/personal/offers" element={<Offers />}></Route>
+
+          <Route path="/help" element={<HelpCenter />}></Route>
+          <Route path="/privacy" element={<Privacy />}></Route>
+          <Route path="/legal" element={<Legal />}></Route>
+          <Route path="/security" element={<Security />}></Route>
+          <Route path="/accessibility" element={<Accessibility />}></Route>
+
           {!user ? (
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
           ) : null}

@@ -67,7 +67,7 @@ const Header = ({ activeTab, sidebarOpen, setSidebarOpen, user }) => {
                   className="w-8 h-8 rounded-full object-cover border border-gray-200"
                 />
               ) : (
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
                   <span className="text-white text-sm font-medium">
                     {user?.firstName?.charAt(0)}
                     {user?.lastName?.charAt(0)}

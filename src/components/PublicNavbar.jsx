@@ -4,6 +4,18 @@ import { Menu, X, Search, ChevronRight } from "lucide-react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navItems = [
+    { name: "Help", link: "/help" },
+    { name: "Rates", link: "/rates" },
+  ];
+
+  const mainNav = [
+    { name: "Save", link: "/personal/save" },
+    { name: "Spend", link: "/personal/checking" },
+    { name: "Invest", link: "/personal/investing" },
+    { name: "Borrow", link: "/personal/credit" },
+  ];
+
   return (
     <nav className="bg-white shadow relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,13 +29,13 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden lg:flex space-x-6">
-              {["Save", "Spend", "Invest", "Borrow"].map((item) => (
+              {mainNav.map((item, index) => (
                 <a
-                  key={item}
-                  href="#"
+                  key={index}
+                  href={item.link}
                   className="text-gray-700 hover:text-blue-600 font-medium"
                 >
-                  {item}
+                  {item.name}
                 </a>
               ))}
             </div>
@@ -49,7 +61,11 @@ const Navbar = () => {
               className="lg:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -70,12 +86,14 @@ const Navbar = () => {
 
         {/* Main Menu */}
         <div className="px-4 py-4 space-y-4 flex-grow">
-          {["Save", "Spend", "Invest", "Borrow"].map((item) => (
+          {mainNav.map((item, index) => (
             <div
-              key={item}
+              key={index}
               className="flex justify-between items-center text-gray-700 hover:text-blue-600 font-medium cursor-pointer"
             >
-              <span>{item}</span>
+              <a href={item.link}>
+                <span>{item.name}</span>
+              </a>
               <ChevronRight className="w-5 h-5" />
             </div>
           ))}
@@ -83,13 +101,13 @@ const Navbar = () => {
 
         {/* Bottom Menu */}
         <div className="px-4 py-4 border-t space-y-4">
-          {["Help", "Rates", "Feedback"].map((item) => (
+          {navItems.map((items, index) => (
             <a
-              key={item}
-              href="#"
+              key={index}
+              href={items.link}
               className="block text-gray-700 hover:text-orange-600 font-medium"
             >
-              {item}
+              {items.name}
             </a>
           ))}
 
