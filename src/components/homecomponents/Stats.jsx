@@ -2,8 +2,8 @@ import React from "react";
 
 const Stats = () => {
   const stats = [
-    { value: "$9 Billion+", label: "Interest paid to Canadians" },
-    { value: "2 Million+", label: "Tangerine Clients" },
+    { value: "$9 Billion+", label: "Interest paid to Customers" },
+    { value: "2 Million+", label: "Business name Clients" },
     { value: "$0", label: "Daily banking fees" },
   ];
 

@@ -1,6 +1,18 @@
 import React from "react";
 
 const Footer = () => {
+  const footerNavTwo = [
+    { name: "Help Center", link: "/help" },
+    { name: "Contact Us", link: "/contact" },
+    { name: "Rates", link: "/rates" },
+  ];
+
+  const bottomFooter = [
+    { name: "Privacy", link: "/privacy" },
+    { name: "Legal", link: "/legal" },
+    { name: "Security", link: "/security" },
+    { name: "Accessibility", link: "/accessibility" },
+  ];
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -10,37 +22,16 @@ const Footer = () => {
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
-              {["Help Center", "Learning Center", "Contact Us", "Rates"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="hover:text-white transition-colors"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-
-          {/* About Us */}
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">About Us</h3>
-            <ul className="space-y-2">
-              {["Who We Are", "Awards", "Partnerships", "Careers"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="hover:text-white transition-colors"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                )
-              )}
+              {footerNavTwo.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.link}
+                    className="hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -49,17 +40,15 @@ const Footer = () => {
         <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm">
           {/* Lower Menu */}
           <div className="flex flex-wrap justify-center md:justify-start space-x-6 mb-4 md:mb-0">
-            {["Privacy", "Legal", "Security", "Accessibility", "AdChoices"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="hover:text-white transition-colors"
-                >
-                  {item}
-                </a>
-              )
-            )}
+            {bottomFooter.map((item, index) => (
+              <a
+                key={index}
+                href={item.link}
+                className="hover:text-white transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
 
           {/* Copyright */}
