@@ -11,8 +11,14 @@ import {
   ChevronRight,
   DollarSign,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Checking() {
+  useSEO({
+    title: "Checking",
+    description:
+      "Checking - The Private Lending and Finance Firm of First Kevington",
+  });
   // Simple slider state to estimate standard big-bank fee savings
   const [estimatedMonthlyTransactions, setEstimatedMonthlyTransactions] =
     useState(25);
@@ -31,7 +37,7 @@ export default function Checking() {
             Everyday Banking
           </div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-            A Chequing Account that actually{" "}
+            A Checking Account that actually{" "}
             <span className="text-orange-500">pays you interest</span>.
           </h1>
           <p className="text-lg md:text-xl text-neutral-300 max-w-2xl font-light">
@@ -41,7 +47,7 @@ export default function Checking() {
           </p>
           <div className="pt-4 flex flex-col sm:flex-row gap-4">
             <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-8 py-4 rounded-full transition flex items-center justify-center gap-2 shadow-lg shadow-orange-600/20">
-              Open a Chequing Account <ArrowRight className="w-4 h-4" />
+              Open a Checking Account <ArrowRight className="w-4 h-4" />
             </button>
             <button className="bg-transparent hover:bg-white/10 text-white font-bold border-2 border-white/40 px-8 py-4 rounded-full transition">
               View All Features
@@ -85,18 +91,6 @@ export default function Checking() {
               <p className="text-gray-500 text-xs mt-0.5">
                 Earn interest systematically on your operational daily card
                 balances.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <CreditCard className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-bold text-sm text-neutral-900">
-                Free Scotiabank® ABMs
-              </h3>
-              <p className="text-gray-500 text-xs mt-0.5">
-                Access cash at over 3,500 domestic locations without dynamic
-                network surcharges.
               </p>
             </div>
           </div>
@@ -172,8 +166,8 @@ export default function Checking() {
             <p className="text-neutral-400 text-sm font-light leading-relaxed">
               Most institutional bank profiles charge up to $15 per month or
               charge fees per single transaction unless you maintain thousands
-              in uninvested idle capital. Calculate what you keep with
-              Tangerine.
+              in uninvested idle capital. Calculate what you keep with Ace
+              Global Financiers.
             </p>
 
             <div className="pt-6 space-y-2">
@@ -256,13 +250,13 @@ export default function Checking() {
                 ✓ Legal ID
               </div>
               <div className="p-2.5 bg-white rounded-lg border border-gray-100">
-                ✓ Social Ins #
+                ✓ Social Sns #
               </div>
               <div className="p-2.5 bg-white rounded-lg border border-gray-100">
                 ✓ Age 16+
               </div>
               <div className="p-2.5 bg-white rounded-lg border border-gray-100">
-                ✓ Ca Address
+                ✓ US Address
               </div>
             </div>
             <button className="w-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-1 mt-2">

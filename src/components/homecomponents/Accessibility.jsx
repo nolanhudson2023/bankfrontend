@@ -12,10 +12,17 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function AccessibilityHub() {
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
   const [feedbackText, setFeedbackText] = useState("");
+
+  useSEO({
+    title: "Accessibility Hub",
+    description:
+      "Accessibility Hub - The Private Lending and Finance Firm of First Kevington",
+  });
 
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
@@ -40,10 +47,10 @@ export default function AccessibilityHub() {
             every Client
           </h1>
           <p className="text-slate-400 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
-            Tangerine is committed to providing digital and physical financial
-            spaces that respect dignity and independence. We continuously refine
-            our technical layouts to remove structural barriers for individuals
-            of all abilities.
+            First Kevington is committed to providing digital and physical
+            financial spaces that respect dignity and independence. We
+            continuously refine our technical layouts to remove structural
+            barriers for individuals of all abilities.
           </p>
         </div>
       </section>
@@ -128,13 +135,13 @@ export default function AccessibilityHub() {
                   <Phone className="w-4 h-4 text-orange-500 shrink-0" />
                   <span>
                     TTY Support Line:{" "}
-                    <strong className="text-orange-400">1-888-826-4374</strong>
+                    {/* <strong className="text-orange-400">1-888-826-4374</strong>*/}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Accessibility className="w-4 h-4 text-orange-500 shrink-0" />
                   <span>
-                    Canada Relay Service compatibility enabled across all
+                    United States Relay Service compatibility enabled across all
                     queues.
                   </span>
                 </div>
@@ -231,7 +238,7 @@ export default function AccessibilityHub() {
                   Designated Email Line:
                 </span>
                 <span className="font-bold text-slate-800 font-mono">
-                  accessibility@tangerine.ca
+                  accessibility@firstkevington.com
                 </span>
               </div>
               <div>
@@ -239,10 +246,10 @@ export default function AccessibilityHub() {
                   Mail Headquarters Address:
                 </span>
                 <p className="text-slate-700 font-light mt-0.5 leading-normal">
-                  Tangerine Bank <br />
+                  First Kevington <br />
                   Attn: Director of Client Quality & Inclusivity <br />
-                  3389 Steeles Avenue East <br />
-                  Toronto, Ontario, M2H 0A1
+                  501 Kevington Ct <br />
+                  Sacramento, CA 95864, USA
                 </p>
               </div>
             </div>

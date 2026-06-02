@@ -12,9 +12,12 @@ import {
   CheckCircle2,
   ArrowUpRight,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Security() {
   const [activeTab, setActiveTab] = useState("features");
+
+  useSEO({ title: "Security Center" });
 
   return (
     <main className="w-full bg-slate-50 text-slate-900 font-sans antialiased">
@@ -45,7 +48,7 @@ export default function Security() {
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-6 h-6 text-white shrink-0" />
               <h2 className="text-xl font-black tracking-tight">
-                The Tangerine Security Promise
+                The First Kevington Security Promise
               </h2>
             </div>
             <p className="text-white/90 text-xs font-light leading-relaxed">
@@ -178,8 +181,8 @@ export default function Security() {
               <div className="p-4 bg-slate-50 rounded-xl flex items-start gap-3">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <p className="text-slate-600 text-xs font-light leading-normal">
-                  <strong>Phishing Mitigation:</strong> Tangerine will never
-                  transmit unauthenticated redirect hyperlinks requesting
+                  <strong>Phishing Mitigation:</strong> First Kevington will
+                  never transmit unauthenticated redirect hyperlinks requesting
                   account adjustments. Ignore texts or calls threatening profile
                   locking.
                 </p>
@@ -219,7 +222,7 @@ export default function Security() {
           </div>
 
           <div className="bg-neutral-950 text-white rounded-xl px-4 py-3 shrink-0 flex items-center gap-2.5 font-mono text-xs font-bold w-full md:w-auto justify-center">
-            <Phone className="w-3.5 h-3.5 text-orange-500" /> 1-888-826-4374
+            {/* <Phone className="w-3.5 h-3.5 text-orange-500" /> 1-888-826-4374*/}
           </div>
         </div>
 

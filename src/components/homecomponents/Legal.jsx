@@ -11,16 +11,18 @@ import {
   Download,
   Building,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Legal() {
+  useSEO({ title: "Legal" });
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
 
   // Directory of legal documents and agreements
   const legalDocuments = [
     {
-      id: "chequing-agreement",
-      title: "Tangerine Chequing Account Terms",
+      id: "checking-agreement",
+      title: "First Kevington Checking Account Terms",
       category: "accounts",
       code: "Form 4022",
       description:
@@ -99,10 +101,10 @@ export default function Legal() {
             Legal Terms & Agreements
           </h1>
           <p className="text-slate-400 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
-            Access the complete regulatory framework guiding your Tangerine
-            profiles. We prioritize clarity, outlining the operational
-            parameters, account structures, and liabilities defining our
-            relationship.
+            Access the complete regulatory framework guiding your Ace Global
+            Financiers profiles. We prioritize clarity, outlining the
+            operational parameters, account structures, and liabilities defining
+            our relationship.
           </p>
         </div>
       </section>
@@ -118,7 +120,7 @@ export default function Legal() {
               CDIC Deposit Protection
             </h3>
             <p className="text-slate-500 text-[11px] leading-relaxed font-light">
-              Tangerine Bank is a member of the **Canada Deposit Insurance
+              First Kevington is a member of the **Canada Deposit Insurance
               Corporation (CDIC)**. Eligible deposits held in our chequing,
               savings, and investment accounts remain secured up to regulatory
               limits.

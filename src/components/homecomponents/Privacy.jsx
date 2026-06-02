@@ -13,18 +13,19 @@ import {
   Info,
   ExternalLink,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Privacy() {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedSection, setExpandedSection] = useState("principles");
-
+  useSEO({ title: "Privacy" });
   // FAQ/Policy Section Content
   const policyBlocks = [
     {
       id: "principles",
       title: "Our Core Privacy Principles",
       icon: <Shield className="w-4 h-4 text-orange-600" />,
-      content: `We build our digital financial platform around absolute transparency. Tangerine holds a strict commitment to fair data processing: your transactional records, asset metrics, and behavioral cookies are analyzed exclusively to fulfill requested services, prevent identity theft, or evaluate product eligibility profile matches. We never market, trade, or sell consumer personal information to third-party brokers.`,
+      content: `We build our digital financial platform around absolute transparency. First Kevington holds a strict commitment to fair data processing: your transactional records, asset metrics, and behavioral cookies are analyzed exclusively to fulfill requested services, prevent identity theft, or evaluate product eligibility profile matches. We never market, trade, or sell consumer personal information to third-party brokers.`,
     },
     {
       id: "collection",
@@ -201,12 +202,12 @@ export default function Privacy() {
               Critical Warning: Protecting Your Access Credentials
             </h4>
             <p className="text-slate-600 text-[11px] leading-relaxed font-light">
-              Tangerine operations, support personnel, and automation instances
-              will **never** request your security PIN parameters, primary
-              password hashes, or interactive multi-factor verification tokens
-              via SMS or unsecured email threads. If a script or third-party
-              interaction queries these items, freeze cards immediately and
-              submit reports to our legal oversight mailbox.
+              First Kevingtons operations, support personnel, and automation
+              instances will **never** request your security PIN parameters,
+              primary password hashes, or interactive multi-factor verification
+              tokens via SMS or unsecured email threads. If a script or
+              third-party interaction queries these items, freeze cards
+              immediately and submit reports to our legal oversight mailbox.
             </p>
           </div>
         </div>

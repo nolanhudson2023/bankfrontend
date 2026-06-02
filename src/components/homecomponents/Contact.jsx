@@ -12,6 +12,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Contact() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,6 +72,11 @@ export default function Contact() {
     return matchesCategory && matchesSearch;
   });
 
+  useSEO({
+    title: "Contact",
+    description:
+      "Contact - The Private Lending and Finance Firm of First Kevington",
+  });
   return (
     <main className="w-full bg-slate-50 text-slate-900 font-sans antialiased">
       {/* 1. HERO & SEARCH HUB */}
@@ -153,10 +159,10 @@ export default function Contact() {
                   </p>
 
                   <div className="pt-2 space-y-1.5 text-xs text-slate-600">
-                    <div className="flex items-center gap-2 font-mono font-bold text-slate-800 text-sm">
+                    {/* <div className="flex items-center gap-2 font-mono font-bold text-slate-800 text-sm">
                       <Phone className="w-3.5 h-3.5 text-orange-600" />{" "}
                       {channel.phone}
-                    </div>
+                    </div>*/}
                     <div className="flex items-center gap-2 text-[11px] text-slate-500">
                       <Clock className="w-3.5 h-3.5 text-slate-400" />{" "}
                       {channel.hours}
@@ -193,9 +199,9 @@ export default function Contact() {
             Travelling internationally or abroad? You can reach our support
             center by calling us collect.
           </p>
-          <div className="font-mono font-bold text-xs text-slate-800 pt-1">
+          {/* <div className="font-mono font-bold text-xs text-slate-800 pt-1">
             +1 (416) 758-3139
-          </div>
+          </div>*/}
         </div>
 
         {/* Card 2: AI Chatbot Integration */}
@@ -224,9 +230,10 @@ export default function Contact() {
             Mailing Address
           </h4>
           <p className="text-slate-500 text-xs font-light font-mono leading-normal">
-            Tangerine Bank <br />
-            3389 Steeles Avenue East <br />
-            Toronto, Ontario, M2H 0A1
+            First Kevington
+            <br />
+            501 Kevington Ct <br />
+            Sacramento, CA 95864, USA
           </p>
           <div className="text-[10px] text-slate-400 font-light">
             Institution #614 | Transit #00152
@@ -257,14 +264,14 @@ export default function Contact() {
               To report suspicious account activity or scams:
             </div>
             <div className="font-mono font-black text-orange-500 text-base flex items-center gap-2">
-              <Phone className="w-4 h-4 text-white" /> 1-888-SAFE-304
+              {/* <Phone className="w-4 h-4 text-white" /> 1-888-SAFE-304*/}
             </div>
             <div className="border-t border-neutral-800 pt-2 text-[11px] text-slate-400 flex items-center gap-2">
               <Mail className="w-3.5 h-3.5 text-orange-500 shrink-0" />
               <span>
                 Forward phish threats to:{" "}
                 <strong className="text-white font-mono">
-                  phishing@tangerine.ca
+                  phishing@firstkevington.com
                 </strong>
               </span>
             </div>

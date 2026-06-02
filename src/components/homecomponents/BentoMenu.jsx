@@ -10,8 +10,8 @@ const bentoItems = [
     link: "/personal/save",
   },
   {
-    title: "Chequing",
-    desc: "No-fee daily chequing",
+    title: "Checking",
+    desc: "No-fee daily checking",
     img: "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?auto=format&fit=crop&w=800&q=80",
     link: "/personal/checking",
   },

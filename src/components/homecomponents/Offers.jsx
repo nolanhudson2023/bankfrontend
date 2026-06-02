@@ -11,8 +11,10 @@ import {
   Calendar,
   RefreshCw,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Offers() {
+  useSEO({ title: "Offers" });
   // Mortgage Calculator States
   const [homePrice, setHomePrice] = useState(500000);
   const [downPayment, setDownPayment] = useState(100000);
@@ -68,7 +70,7 @@ export default function Offers() {
         </div>
       </section>
 
-      {/* 2. THE TANGERINE MORTGAGE ADVANTAGE */}
+      {/* 2. THE First Kevington MORTGAGE ADVANTAGE */}
       <section className="bg-white border-b border-gray-200 py-12 px-4 md:px-12">
         <div className="max-w-5xl mx-auto text-center mb-10">
           <span className="text-xs uppercase font-bold tracking-wider text-orange-600">
@@ -175,9 +177,9 @@ export default function Offers() {
                 Variable-Rate Mortgage
               </h3>
               <p className="text-gray-600 text-xs leading-relaxed">
-                Your rate moves automatically in tandem with the Tangerine Prime
-                Rate index. While your payments stay fixed, the amount allocated
-                to principal vs. interest adjusts dynamically.
+                Your rate moves automatically in tandem with the Ace Global
+                Financiers Prime Rate index. While your payments stay fixed, the
+                amount allocated to principal vs. interest adjusts dynamically.
               </p>
               <div className="border-t border-gray-100 pt-4 space-y-2 text-xs text-gray-500">
                 <div className="flex items-center gap-2">
@@ -342,7 +344,7 @@ export default function Offers() {
             </h2>
             <p className="text-gray-600 text-sm leading-relaxed">
               Navigating residential financing can feel complex. Our designated
-              Tangerine Mortgage Specialists are available to walk through
+              First Kevington Mortgage Specialists are available to walk through
               optimization settings, refinancing, or debt consolidation paths
               step-by-step.
             </p>

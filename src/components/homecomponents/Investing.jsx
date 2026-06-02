@@ -11,8 +11,14 @@ import {
   ShieldCheck,
   Info,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Investing() {
+  useSEO({
+    title: "Investing",
+    description:
+      "Investing - The Private Lending and Finance Firm of First Kevington",
+  });
   // Interactive Growth Estimator States
   const [initialInvestment, setInitialInvestment] = useState(5000);
   const [monthlyContribution, setMonthlyContribution] = useState(200);
@@ -42,7 +48,7 @@ export default function Investing() {
 
         <div className="max-w-4xl mx-auto space-y-6 relative z-10">
           <div className="inline-flex items-center gap-1.5 bg-orange-600/10 text-orange-400 text-xs uppercase tracking-widest font-black px-3 py-1 rounded border border-orange-500/20">
-            <TrendingUp className="w-3.5 h-3.5" /> Tangerine Global Investments
+            <TrendingUp className="w-3.5 h-3.5" /> First Kevington Investments
           </div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
             Invest effortlessly. <br />
@@ -325,9 +331,9 @@ export default function Investing() {
               Safety & Protections
             </h4>
             <p className="text-xs text-gray-600 leading-normal">
-              Tangerine Investment Funds are managed professionally by Tangerine
-              Investment Management Inc. and held securely alongside
-              credentialed clearing custodians.
+              First Kevington Investment Funds are managed professionally by
+              First Kevington Investment Management Inc. and held securely
+              alongside credentialed clearing custodians.
             </p>
             <div className="flex items-start gap-2 text-[10px] text-gray-400 leading-tight">
               <Info className="w-3.5 h-3.5 shrink-0 text-gray-300" />

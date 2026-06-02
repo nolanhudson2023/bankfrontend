@@ -1,8 +1,11 @@
 import React from "react";
-import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import useSEO from "../hooks/useSEO";
 
 const Home = () => {
-  useDocumentTitle("Home");
+  useSEO({
+    title: "Homepage",
+    description: "The Private Lending and Finance Firm of First Kevington",
+  });
 
   return (
     <div className="p-8">

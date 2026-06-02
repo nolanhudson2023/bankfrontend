@@ -14,6 +14,7 @@ import {
   AlertCircle,
   ExternalLink,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,8 +50,14 @@ export default function HelpCenter() {
     "There has been some suspicious activity in my Account. What should I do?",
     "How do I set up or customize my Orange Alerts?",
     "How can I link an external Canadian bank account?",
-    "What is Tangerine's official routing and mailing address?",
+    "What is First Kevington's official routing and mailing address?",
   ];
+
+  useSEO({
+    title: "Help Center",
+    description:
+      "Help Center - The Private Lending and Finance Firm of First Kevington",
+  });
 
   return (
     <main className="w-full bg-gray-50 text-gray-900 font-sans antialiased">
@@ -89,11 +96,11 @@ export default function HelpCenter() {
           <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div className="text-sm text-neutral-800">
             <span className="font-bold text-amber-950">Security Notice:</span>{" "}
-            Tangerine will never text or call you asking for your PIN,
+            First Kevington will never text or call you asking for your PIN,
             passwords, or 2-step authentication codes. If you suspect an email
             or SMS isn't legitimate, forward it to{" "}
             <span className="font-semibold underline text-amber-900">
-              phishing@tangerine.ca
+              phishing@firstkevington.com
             </span>
             .
           </div>
@@ -185,12 +192,12 @@ export default function HelpCenter() {
               </div>
             </div>
             <div className="pt-2">
-              <div className="text-xl font-black text-orange-600">
+              {/* <div className="text-xl font-black text-orange-600">
                 1-888-826-4374
-              </div>
-              <p className="text-xs text-gray-400 mt-0.5">
+              </div>*/}
+              {/* <p className="text-xs text-gray-400 mt-0.5">
                 Outside Canada/US (Collect): 416-758-3139
-              </p>
+              </p>*/}
             </div>
             <div className="bg-gray-50 rounded-xl p-3 flex items-center justify-between border border-gray-100 text-xs">
               <span className="text-gray-600 flex items-center gap-1">
@@ -241,9 +248,10 @@ export default function HelpCenter() {
               </div>
             </div>
             <div className="text-xs text-gray-600 leading-normal pt-2 font-mono bg-gray-50 p-3 rounded-xl border border-gray-100">
-              Tangerine Bank <br />
-              3389 Steeles Avenue East <br />
-              Toronto, Ontario, M2H 0A1 <br />
+              First Kevington
+              <br />
+              501 Kevington Ct <br />
+              Sacramento, CA 95864, USA <br />
               <span className="font-sans font-bold text-[11px] block mt-2 text-neutral-500">
                 Institution #614 | Transit #00152
               </span>

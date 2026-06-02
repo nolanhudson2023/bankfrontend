@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Smartphone,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Save() {
   // Calculator States
@@ -41,7 +42,7 @@ export default function Save() {
       rate: "0.30%†",
       promo: "Earn 4.50% for 5 months²",
       description:
-        "Earn tax-free interest on top of the same great advantages of a standard Tangerine Savings Account.",
+        "Earn tax-free interest on top of the same great advantages of a standard First Kevington Savings Account.",
       features: [
         "Tax-free growth",
         "No minimum balance",
@@ -85,6 +86,8 @@ export default function Save() {
       ],
     },
   ];
+
+  useSEO({ title: "Savings" });
 
   return (
     <main className="w-full bg-gray-50 text-gray-900 font-sans antialiased">
@@ -365,7 +368,7 @@ export default function Save() {
                 ✓ Valid Canadian Home Address
               </li>
               <li className="flex items-center gap-2">
-                ✓ Social Insurance Number (SIN)
+                ✓ Social Security Number (SSN)
               </li>
               <li className="flex items-center gap-2">
                 ✓ Date of Birth (Must be 16+)

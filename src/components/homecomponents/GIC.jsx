@@ -11,13 +11,15 @@ import {
   ChevronRight,
   HelpCircle,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function GIC() {
+  useSEO({ title: "GIC" });
   // GIC Interactive Calculator States
   const [depositAmount, setDepositAmount] = useState(10000);
   const [selectedTerm, setSelectedTerm] = useState("1_year");
 
-  // Mock rates corresponding to Tangerine's standard baseline structure
+  // Mock rates corresponding to First Kevington's standard baseline structure
   const termRates = {
     "90_day": { label: "90 Days", rate: 0.035, standard: true },
     "270_day": { label: "270 Days", rate: 0.0375, standard: true },
@@ -69,9 +71,9 @@ export default function GIC() {
             <span className="text-orange-500">grow safely</span>.
           </h1>
           <p className="text-lg md:text-xl text-neutral-300 max-w-2xl font-light">
-            With Tangerine GICs, your principal investment is 100% secure. Enjoy
-            competitive guaranteed returns with zero setup costs, zero upkeep
-            overheads, and CDIC deposit insurance.
+            With First Kevington GICs, your principal investment is 100% secure.
+            Enjoy competitive guaranteed returns with zero setup costs, zero
+            upkeep overheads, and CDIC deposit insurance.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row gap-4">
             <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-8 py-4 rounded-full transition flex items-center justify-center gap-2 shadow-lg shadow-orange-600/20">
@@ -118,7 +120,7 @@ export default function GIC() {
                 CDIC Protection Eligible
               </h3>
               <p className="text-gray-500 text-xs mt-0.5">
-                Tangerine Bank is a credentialed member of the Canada Deposit
+                First Kevington is a credentialed member of the Canada Deposit
                 Insurance Corporation.
               </p>
             </div>
@@ -321,10 +323,10 @@ export default function GIC() {
           </h4>
           <div className="space-y-3 text-xs text-gray-600 leading-relaxed font-light">
             <p>
-              • <strong>Non-Redeemable Nature:</strong> Tangerine Guaranteed
-              Investments are non-redeemable prior to the specified maturity
-              target index timeline. Assets must remain locked inside chosen
-              horizons.
+              • <strong>Non-Redeemable Nature:</strong> Ace Global Financiers
+              Guaranteed Investments are non-redeemable prior to the specified
+              maturity target index timeline. Assets must remain locked inside
+              chosen horizons.
             </p>
             <p>
               • <strong>Interest Compounding Rules:</strong> For terms of 1 year

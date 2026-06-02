@@ -11,6 +11,7 @@ import {
   DollarSign,
   Calculator,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Rates() {
   // Tabs: 'savings' | 'gics' | 'borrowing' | 'business'
@@ -19,6 +20,7 @@ export default function Rates() {
   // Interactive GIC Term selection state to show clean user interaction handling
   const [gicType, setGicType] = useState("regular"); // 'regular' | 'us_dollar'
 
+  useSEO({ title: "Rates" });
   return (
     <main className="w-full bg-gray-50 text-gray-900 font-sans antialiased">
       {/* 1. RATE HEADER HERO OVERVIEW */}
@@ -47,7 +49,7 @@ export default function Rates() {
             </div>
             <div>
               <div className="text-xs text-neutral-400 font-medium">
-                Tangerine Prime Rate
+                First Kevington Prime Rate
               </div>
               <div className="text-2xl font-black text-white mt-0.5">4.45%</div>
               <div className="text-[10px] text-neutral-500">
@@ -117,7 +119,10 @@ export default function Rates() {
               </div>
               <div className="divide-y divide-gray-100 text-sm">
                 {[
-                  { name: "Tangerine Savings Account", rate: "0.30%†" },
+                  {
+                    name: "First Kevington Savings Account",
+                    rate: "0.30%†",
+                  },
                   { name: "Tax-Free Savings Account (TFSA)", rate: "0.30%†" },
                   { name: "RSP Savings Account", rate: "0.30%†" },
                   { name: "RIF Savings Account", rate: "0.35%†" },

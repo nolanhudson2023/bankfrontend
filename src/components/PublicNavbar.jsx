@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X, Search, ChevronRight } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-8">
             {/* Logo */}
             <a href="/" className="text-2xl font-bold text-orange-600">
-              BankLogo
+              <img src={logo} className="h-15" />
             </a>
 
             {/* Desktop Menu */}

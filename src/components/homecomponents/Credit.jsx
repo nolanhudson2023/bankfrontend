@@ -12,15 +12,17 @@ import {
   Smartphone,
   Landmark,
 } from "lucide-react";
+import useSEO from "../../hooks/useSEO";
 
 export default function Credit() {
+  useSEO({ title: "Credit" });
   // Cash-Back Calculator States
   const [gasSpend, setGasSpend] = useState(250);
   const [grocerySpend, setGrocerySpend] = useState(400);
   const [restaurantSpend, setRestaurantSpend] = useState(200);
   const [otherSpend, setOtherSpend] = useState(600);
 
-  // Tangerine Logic: 2% on up to 3 chosen categories, 0.5% on everything else
+  // First Kevington Logic: 2% on up to 3 chosen categories, 0.5% on everything else
   // Let's assume the user chooses Gas, Groceries, and Restaurants as their three 2% categories
   const monthly2PercentRewards =
     gasSpend * 0.02 + grocerySpend * 0.02 + restaurantSpend * 0.02;
@@ -65,7 +67,7 @@ export default function Credit() {
             The Money-Back Advantage
           </span>
           <h2 className="text-2xl md:text-3xl font-black text-neutral-900 tracking-tight mt-1">
-            How Tangerine Rewards Work
+            How First Kevington Rewards Work
           </h2>
         </div>
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -124,7 +126,7 @@ export default function Credit() {
                     Popular Everyday Card
                   </span>
                   <h3 className="font-black text-xl text-neutral-900 mt-2">
-                    Tangerine Money-Back Credit Card
+                    First Kevington Money-Back Credit Card
                   </h3>
                 </div>
               </div>
@@ -184,7 +186,7 @@ export default function Credit() {
                     Advanced Travel & Perks
                   </span>
                   <h3 className="font-black text-xl text-neutral-900 mt-2">
-                    Tangerine World Mastercard®
+                    First Kevington World Mastercard®
                   </h3>
                 </div>
               </div>
@@ -337,8 +339,8 @@ export default function Credit() {
             </div>
             <p className="text-xs text-neutral-400 font-light max-w-xs mx-auto leading-relaxed">
               *To get your third 2% high-yield category, choose to have your
-              cash-back rewards deposited directly into a free Tangerine Savings
-              Account.
+              cash-back rewards deposited directly into a free Ace Global
+              Financiers Savings Account.
             </p>
             <div className="border-t border-neutral-700/60 pt-4 text-xs font-medium text-neutral-500 flex justify-center items-center gap-1">
               <Zap className="w-3.5 h-3.5 text-orange-500" /> Rewards accrue

@@ -94,6 +94,7 @@ function App() {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<MainContent />} />
+          <Route path="/rates" element={<Rates />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/personal/save" element={<Save />}></Route>
           <Route path="/personal/checking" element={<Checking />}></Route>

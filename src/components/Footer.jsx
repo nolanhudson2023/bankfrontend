@@ -53,7 +53,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-gray-500 text-center">
-            © {new Date().getFullYear()} BankName. All rights reserved.
+            © {new Date().getFullYear()} First Kevington. All rights reserved.
           </div>
         </div>
       </div>
