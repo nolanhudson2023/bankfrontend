@@ -232,8 +232,8 @@ export default function Contact() {
           <p className="text-slate-500 text-xs font-light font-mono leading-normal">
             First Kevington
             <br />
-            501 Kevington Ct <br />
-            Sacramento, CA 95864, USA
+            2501 SW Vineyard Lane <br />
+            Ankeny, Iowa 50023, USA
           </p>
           <div className="text-[10px] text-slate-400 font-light">
             Institution #614 | Transit #00152

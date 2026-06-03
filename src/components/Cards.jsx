@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { CreditCard, Eye, EyeOff, Lock, Unlock, Plus, MoreHorizontal } from 'lucide-react';
-import { api } from '../api';
-
-
+import React, { useState, useEffect } from "react";
+import {
+  CreditCard,
+  Eye,
+  EyeOff,
+  Lock,
+  Unlock,
+  Plus,
+  MoreHorizontal,
+} from "lucide-react";
+import { api } from "../api";
 
 const Cards = ({ user }) => {
   const [cards, setCards] = useState([]);
@@ -13,43 +19,44 @@ const Cards = ({ user }) => {
     fetchCards();
   }, []);
 
-const fetchCards = async () => {
-  try {
-    const data = await api.get("/cards"); // ✅ token auto-attached
-    setCards(data);
-  } catch (error) {
-    console.error("Error fetching cards:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchCards = async () => {
+    try {
+      const data = await api.get("/cards"); // ✅ token auto-attached
+      setCards(data);
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleCardNumberVisibility = (cardId) =>
     setShowCardNumbers((prev) => ({ ...prev, [cardId]: !prev[cardId] }));
 
-  const formatCardNumber = (cardNumber = '') => cardNumber.replace(/(.{4})/g, '$1 ').trim();
+  const formatCardNumber = (cardNumber = "") =>
+    cardNumber.replace(/(.{4})/g, "$1 ").trim();
 
   const getCardColor = (cardType) => {
     switch (cardType) {
-      case 'debit':
-        return 'from-blue-600 to-blue-700';
-      case 'credit':
-        return 'from-purple-600 to-purple-700';
+      case "debit":
+        return "from-blue-600 to-blue-700";
+      case "credit":
+        return "from-purple-600 to-purple-700";
       default:
-        return 'from-gray-600 to-gray-700';
+        return "from-gray-600 to-gray-700";
     }
   };
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'active':
-        return 'bg-green-100 text-green-700';
-      case 'blocked':
-        return 'bg-red-100 text-red-700';
-      case 'expired':
-        return 'bg-gray-100 text-gray-700';
+      case "active":
+        return "bg-green-100 text-green-700";
+      case "blocked":
+        return "bg-red-100 text-red-700";
+      case "expired":
+        return "bg-gray-100 text-gray-700";
       default:
-        return 'bg-gray-100 text-gray-700';
+        return "bg-gray-100 text-gray-700";
     }
   };
 
@@ -82,12 +89,12 @@ const fetchCards = async () => {
             {/* Card Visual */}
             <div
               className={`relative bg-gradient-to-br ${getCardColor(
-                card.cardType
+                card.cardType,
               )} rounded-2xl p-6 text-white shadow-lg`}
             >
               <div className="flex items-center justify-between mb-8">
                 <div className="text-sm font-medium opacity-80">
-                  {(card.cardType || '').toUpperCase()} CARD
+                  {(card.cardType || "").toUpperCase()} CARD
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-6 bg-white rounded opacity-80"></div>
@@ -98,8 +105,8 @@ const fetchCards = async () => {
               <div className="mb-6">
                 <div className="text-lg font-mono tracking-wider">
                   {showCardNumbers[card._id]
-                    ? formatCardNumber(card.cardNumber || '')
-                    : '•••• •••• •••• ' + (card.cardNumber || '').slice(-4)}
+                    ? formatCardNumber(card.cardNumber || "")
+                    : "•••• •••• •••• " + (card.cardNumber || "").slice(-4)}
                 </div>
               </div>
 
@@ -107,7 +114,8 @@ const fetchCards = async () => {
                 <div>
                   <div className="text-xs opacity-60 mb-1">CARD HOLDER</div>
                   <div className="text-sm font-medium">
-                    {(user?.firstName || '').toUpperCase()} {(user?.lastName || '').toUpperCase()}
+                    {(user?.firstName || "").toUpperCase()}{" "}
+                    {(user?.lastName || "").toUpperCase()}
                   </div>
                 </div>
                 <div className="text-right">
@@ -120,7 +128,9 @@ const fetchCards = async () => {
             {/* Card Controls */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
               <div className="flex items-center justify-between mb-4">
-                <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(card.status)}`}>
+                <span
+                  className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(card.status)}`}
+                >
                   {card.status?.charAt(0).toUpperCase() + card.status?.slice(1)}
                 </span>
                 <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
@@ -128,7 +138,7 @@ const fetchCards = async () => {
                 </button>
               </div>
 
-              {card.cardType === 'credit' && (
+              {card.cardType === "credit" && (
                 <div className="mb-4">
                   <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
                     <span>Credit Limit</span>
@@ -137,7 +147,10 @@ const fetchCards = async () => {
                     </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: '35%' }}></div>
+                    <div
+                      className="bg-blue-600 h-2 rounded-full"
+                      style={{ width: "35%" }}
+                    ></div>
                   </div>
                   <div className="text-xs text-gray-500 mt-1">35% used</div>
                 </div>
@@ -148,12 +161,24 @@ const fetchCards = async () => {
                   onClick={() => toggleCardNumberVisibility(card._id)}
                   className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  {showCardNumbers[card._id] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  <span className="text-sm">{showCardNumbers[card._id] ? 'Hide' : 'Show'}</span>
+                  {showCardNumbers[card._id] ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                  <span className="text-sm">
+                    {showCardNumbers[card._id] ? "Hide" : "Show"}
+                  </span>
                 </button>
                 <button className="flex items-center justify-center gap-2 px-3 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors">
-                  {card.status === 'active' ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
-                  <span className="text-sm">{card.status === 'active' ? 'Block' : 'Unblock'}</span>
+                  {card.status === "active" ? (
+                    <Lock className="w-4 h-4" />
+                  ) : (
+                    <Unlock className="w-4 h-4" />
+                  )}
+                  <span className="text-sm">
+                    {card.status === "active" ? "Block" : "Unblock"}
+                  </span>
                 </button>
               </div>
             </div>
@@ -164,7 +189,9 @@ const fetchCards = async () => {
       {/* Card Services */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Card Services</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Card Services
+          </h3>
           <div className="space-y-4">
             <button className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-3">
@@ -184,7 +211,9 @@ const fetchCards = async () => {
                 </div>
                 <div className="text-left">
                   <p className="font-medium text-gray-900">Card Limits</p>
-                  <p className="text-sm text-gray-600">Modify spending limits</p>
+                  <p className="text-sm text-gray-600">
+                    Modify spending limits
+                  </p>
                 </div>
               </div>
             </button>
@@ -194,8 +223,12 @@ const fetchCards = async () => {
                   <Plus className="w-5 h-5 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <p className="font-medium text-gray-900">Add Authorized User</p>
-                  <p className="text-sm text-gray-600">Add family member to account</p>
+                  <p className="font-medium text-gray-900">
+                    Add Authorized User
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Add family member to account
+                  </p>
                 </div>
               </div>
             </button>
@@ -203,27 +236,48 @@ const fetchCards = async () => {
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Security Features</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Security Features
+          </h3>
           <div className="space-y-4">
             {[
-              { label: 'Contactless Payments', on: true, note: 'Tap to pay enabled' },
-              { label: 'Online Purchases', on: true, note: 'E-commerce transactions' },
-              { label: 'International Usage', on: false, note: 'Overseas transactions' },
-              { label: 'ATM Withdrawals', on: true, note: 'Cash withdrawal access' },
+              {
+                label: "Contactless Payments",
+                on: true,
+                note: "Tap to pay enabled",
+              },
+              {
+                label: "Online Purchases",
+                on: true,
+                note: "E-commerce transactions",
+              },
+              {
+                label: "International Usage",
+                on: true,
+                note: "Overseas transactions",
+              },
+              {
+                label: "ATM Withdrawals",
+                on: true,
+                note: "Cash withdrawal access",
+              },
             ].map((item) => (
-              <div key={item.label} className="flex items-center justify-between">
+              <div
+                key={item.label}
+                className="flex items-center justify-between"
+              >
                 <div>
                   <p className="font-medium text-gray-900">{item.label}</p>
                   <p className="text-sm text-gray-600">{item.note}</p>
                 </div>
                 <div
                   className={`w-12 h-6 rounded-full relative ${
-                    item.on ? 'bg-blue-600' : 'bg-gray-300'
+                    item.on ? "bg-blue-600" : "bg-gray-300"
                   }`}
                 >
                   <div
                     className={`w-4 h-4 bg-white rounded-full absolute top-1 ${
-                      item.on ? 'right-1' : 'left-1'
+                      item.on ? "right-1" : "left-1"
                     }`}
                   ></div>
                 </div>

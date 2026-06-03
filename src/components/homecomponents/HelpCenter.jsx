@@ -250,8 +250,8 @@ export default function HelpCenter() {
             <div className="text-xs text-gray-600 leading-normal pt-2 font-mono bg-gray-50 p-3 rounded-xl border border-gray-100">
               First Kevington
               <br />
-              501 Kevington Ct <br />
-              Sacramento, CA 95864, USA <br />
+              2501 SW Vineyard Lane <br />
+              Ankeny, Iowa 50023, USA
               <span className="font-sans font-bold text-[11px] block mt-2 text-neutral-500">
                 Institution #614 | Transit #00152
               </span>

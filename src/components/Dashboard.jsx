@@ -247,7 +247,7 @@ const Dashboard = ({ user }) => {
           </div>
           <p className="text-sm text-gray-600 mb-1">Savings Goal</p>
           <p className="text-2xl font-bold text-gray-900">
-            {formatCurrency(5000)}
+            {formatCurrency(650000)}
           </p>
           <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
             <div

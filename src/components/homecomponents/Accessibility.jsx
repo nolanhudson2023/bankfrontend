@@ -248,8 +248,8 @@ export default function AccessibilityHub() {
                 <p className="text-slate-700 font-light mt-0.5 leading-normal">
                   First Kevington <br />
                   Attn: Director of Client Quality & Inclusivity <br />
-                  501 Kevington Ct <br />
-                  Sacramento, CA 95864, USA
+                  2501 SW Vineyard Lane <br />
+                  Ankeny, Iowa 50023, USA
                 </p>
               </div>
             </div>
