@@ -12,6 +12,8 @@ import { api } from "../api";
 const Transactions = ({ user }) => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
@@ -196,13 +198,20 @@ const Transactions = ({ user }) => {
                 <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
                   Date
                 </th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-gray-900">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {currentTransactions.map((transaction) => (
                 <tr
                   key={transaction._id}
-                  className="hover:bg-gray-50 transition-colors"
+                  onClick={() => {
+                    setSelectedTransaction(transaction);
+                    setShowModal(true);
+                  }}
+                  className="hover:bg-gray-50 cursor-pointer"
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-3">
@@ -243,6 +252,17 @@ const Transactions = ({ user }) => {
                       month: "short",
                       day: "numeric",
                     })}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => {
+                        setSelectedTransaction(transaction);
+                        setShowModal(true);
+                      }}
+                      className="text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                      View Details
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -293,6 +313,73 @@ const Transactions = ({ user }) => {
           </div>
         )}
       </div>
+      {showModal && selectedTransaction && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg w-full max-w-lg p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold">Transaction Details</h3>
+
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  setSelectedTransaction(null);
+                }}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm text-gray-500">Type</p>
+                <p className="capitalize">{selectedTransaction.type}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-500">Amount</p>
+                <p>{formatCurrency(selectedTransaction.amount)}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-500">Description</p>
+                <p>{selectedTransaction.description}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-500">Status</p>
+                <p className="capitalize">{selectedTransaction.status}</p>
+              </div>
+
+              {selectedTransaction.recipientAccount && (
+                <div>
+                  <p className="text-sm text-gray-500">Recipient Account</p>
+                  <p>{selectedTransaction.recipientAccount}</p>
+                </div>
+              )}
+
+              {selectedTransaction.beneficiaryBank && (
+                <div>
+                  <p className="text-sm text-gray-500">Beneficiary Bank</p>
+                  <p>{selectedTransaction.beneficiaryBank}</p>
+                </div>
+              )}
+
+              {selectedTransaction.routingNumber && (
+                <div>
+                  <p className="text-sm text-gray-500">Routing Number</p>
+                  <p>{selectedTransaction.routingNumber}</p>
+                </div>
+              )}
+
+              <div>
+                <p className="text-sm text-gray-500">Date</p>
+                <p>{new Date(selectedTransaction.date).toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -28,6 +28,7 @@ const Transfer = ({ user }) => {
       beneficiaryName: "",
       beneficiaryIban: "",
       swiftCode: "",
+      beneficiaryBank: "",
       beneficiaryAddress: "",
       routingNumber: "",
     },
@@ -75,7 +76,8 @@ const Transfer = ({ user }) => {
           swift.beneficiaryIban &&
           swift.swiftCode &&
           swift.beneficiaryAddress &&
-          swift.routingNumber
+          swift.routingNumber &&
+          swift.beneficiaryBank
         );
       case "sepa":
         return !!(
@@ -388,6 +390,14 @@ const Transfer = ({ user }) => {
                   value={transferData.swift.routingNumber}
                   onChange={(e) =>
                     handleChange("swift", "routingNumber", e.target.value)
+                  }
+                />
+                <input
+                  placeholder="Recieving Bank"
+                  className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl"
+                  value={transferData.swift.beneficiaryBank}
+                  onChange={(e) =>
+                    handleChange("swift", "beneficiaryBank", e.target.value)
                   }
                 />
                 <input
