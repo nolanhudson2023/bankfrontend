@@ -19,6 +19,8 @@ const Transfer = ({ user }) => {
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
   const [awcError, setAwcError] = useState("");
+  const [showTransactionDisabledModal, setShowTransactionDisabledModal] =
+    useState(false);
 
   const [transferData, setTransferData] = useState({
     transferType: "swift",
@@ -127,6 +129,11 @@ const Transfer = ({ user }) => {
     e.preventDefault();
     if (!isFormValid) return;
 
+    if (user?.transactionsDisabled) {
+      setShowTransactionDisabledModal(true);
+      return;
+    }
+
     setProcessing(true);
 
     try {
@@ -231,6 +238,41 @@ const Transfer = ({ user }) => {
       )}
 
       {/* AWC Modal */}
+
+      {showTransactionDisabledModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-in slide-in-from-bottom-4 duration-300">
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="p-2 bg-red-50 rounded-lg">
+                <Lock className="w-6 h-6 text-red-600" />
+              </div>
+
+              <h2 className="text-xl font-bold text-gray-900">
+                Transactions Restricted
+              </h2>
+            </div>
+
+            <p className="text-sm text-gray-600 leading-relaxed mb-6">
+              Transactions on this account have been temporarily disabled by the
+              bank's compliance team.
+            </p>
+
+            <div className="bg-red-50 border border-red-100 rounded-lg p-4 mb-6">
+              <p className="text-sm text-red-800">
+                Please contact Customer Service or your Account Manager for
+                assistance before attempting another transfer.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowTransactionDisabledModal(false)}
+              className="w-full px-4 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100"
+            >
+              Understood
+            </button>
+          </div>
+        </div>
+      )}
       {showAwcModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-in slide-in-from-bottom-4 duration-300">

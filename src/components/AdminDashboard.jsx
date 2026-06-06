@@ -56,6 +56,25 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleToggleTransactions = async (user) => {
+    try {
+      await api.patch(`/admin/users/${user._id}/transactions-toggle`, {
+        disabled: !user.transactionsDisabled,
+      });
+
+      toast.success(
+        `Transactions ${
+          !user.transactionsDisabled ? "disabled" : "enabled"
+        } successfully`,
+      );
+
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update transaction status");
+    }
+  };
+
   // ✅ Add manual transaction
   const handleAddTransaction = async () => {
     try {
@@ -111,6 +130,30 @@ const AdminDashboard = () => {
                     {user.firstName} {user.lastName} {user.awcCode}
                   </h3>
                   <p className="text-sm text-gray-600">{user.email}</p>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span
+                      className={`text-sm font-medium ${
+                        user.transactionsDisabled
+                          ? "text-red-600"
+                          : "text-green-600"
+                      }`}
+                    >
+                      {user.transactionsDisabled
+                        ? "Transactions Disabled"
+                        : "Transactions Enabled"}
+                    </span>
+
+                    <button
+                      onClick={() => handleToggleTransactions(user)}
+                      className={`px-3 py-1 rounded text-white text-sm ${
+                        user.transactionsDisabled
+                          ? "bg-green-600"
+                          : "bg-red-600"
+                      }`}
+                    >
+                      {user.transactionsDisabled ? "Enable" : "Disable"}
+                    </button>
+                  </div>
 
                   {/* Accounts */}
                   <div className="mt-2 space-y-2">
